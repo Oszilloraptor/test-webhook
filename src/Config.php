@@ -3,6 +3,11 @@ namespace Rikta\TestWebhook;
 
 /**
  * Static configuration for the Webhook.
+ *
+ * As we have two completely different entry points (webhook.php and WebhookServer-Class)
+ * we cannot rely on an object-instance like we would normally do.
+ *
+ * @internal
  */
 class Config
 {
@@ -11,4 +16,7 @@ class Config
 
     /** Target of Debug-Output */
     public const OUTPUT_TARGET = 'php://stdout';
+
+    /** temporary directory to store webhook requests inside */
+    public const TMP_REQUEST_DIR = __DIR__.'/../tmp/webhook-requests/';
 }

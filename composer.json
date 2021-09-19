@@ -7,6 +7,7 @@
         "test": "./vendor/bin/phpunit tests"
     },
     "require": {
+        "jasny/http-message": "^1.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
