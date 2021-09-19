@@ -11,7 +11,7 @@ if (file_exists(__DIR__.'/../../vendor/autoload.php')) {
 } else {
     // autoload-file if the package is itself in the vendor-folder
     /** @noinspection PhpIncludeInspection */
-    require __DIR__.'/../../../autoload.php';
+    require __DIR__.'/../../../../autoload.php';
 }
 
 use Jasny\HttpMessage\ServerRequest;
