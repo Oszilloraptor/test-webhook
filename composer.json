@@ -1,0 +1,33 @@
+{
+    "name": "rikta/test-webhook",
+    "description": "Very basic implementation of a temporary webhook for integration testing",
+    "version": "0.0.1",
+    "scripts": {
+        "style": "./vendor/bin/php-cs-fixer fix --diff -v",
+        "test": "./vendor/bin/phpunit tests"
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dennis Richter",
+            "email": "richter@vivaldi.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rikta\\TestWebhook\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rikta\\TestWebhook\\Tests\\": "tests/"
+        }
+    },
+    "type": "library"
+}
