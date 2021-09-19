@@ -33,6 +33,7 @@ class WebhookServer
         if (!is_dir($this->tmpDir) && !mkdir($this->tmpDir, 0700, true) && !is_dir($this->tmpDir)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $this->tmpDir));
         }
+        $this->clean();
 
         Output::step('Starting Server on Port ' . $this->port);
         $this->process = Process::fromShellCommandline(
@@ -52,6 +53,7 @@ class WebhookServer
     public function __destruct()
     {
         $this->process->stop();
+        $this->clean();
     }
 
     /**
@@ -72,6 +74,22 @@ class WebhookServer
     public function getUrl (string $file = Config::WEBHOOK_FILE, string $host = 'localhost'): string {
         /** @noinspection HttpUrlsUsage */
         return sprintf('http://%s:%d/%s', $host, $this->getPort(), $file);
+    }
+
+    /**
+     * Deletes all files in the temporary directory
+     */
+    public function clean(): void
+    {
+        Output::step('Clean all files');
+        $this->query()->delete();
+    }
+
+    /**
+     * Start a query for requests
+     */
+    public function query(): Query {
+        return new Query($this->tmpDir);
     }
 
     /**
