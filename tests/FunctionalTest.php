@@ -2,6 +2,7 @@
 namespace Rikta\TestWebhook\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use Rikta\TestWebhook\WebhookServer;
 use const CURLOPT_CUSTOMREQUEST;
 use const CURLOPT_POSTFIELDS;
@@ -93,7 +94,19 @@ class FunctionalTest extends TestCase
     public function testLastReturnsLastRequest(WebhookServer $server): WebhookServer
     {
         self::assertEquals(self::DATA3, $server->query()->last()->get()[0]->getBody());
-        
+
+        return $server;
+    }
+
+    /**
+     * @testdox WebhookServer->query()->filter() filters elements
+     * @depends testFirstReturnsFirstRequest
+     */
+    public function testFilterFiltersElements(WebhookServer $server): WebhookServer
+    {
+        $query = $server->query()->filter(fn (ServerRequestInterface $request) => str_contains($request->getBody()->getContents(), 'm'));
+        self::assertEquals(2, $query->count());
+
         return $server;
     }
 
