@@ -9,7 +9,8 @@
     },
     "require": {
         "symfony/process": "^5.3",
-        "jasny/http-message": "^1.3"
+        "jasny/http-message": "^1.3",
+        "rikta/timed-loop": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

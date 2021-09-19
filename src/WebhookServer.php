@@ -3,7 +3,8 @@ namespace Rikta\TestWebhook;
 
 use Rikta\TestWebhook\Exception\NoFreeUserPortException;
 use Rikta\TestWebhook\Utils\Output;
-use Rikta\TestWebhook\Utils\TimedLoop;
+use Rikta\TimedLoop\LoopTimeoutException;
+use Rikta\TimedLoop\TimedLoop;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -24,6 +25,7 @@ class WebhookServer
 
     /**
      * @throws NoFreeUserPortException if the unlikely case occurs that there are no unused ports left...
+     * @throws LoopTimeoutException if the server does not come online after a few seconds
      */
     public function __construct()
     {

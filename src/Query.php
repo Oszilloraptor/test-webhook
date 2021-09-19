@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 namespace Rikta\TestWebhook;
 use Psr\Http\Message\ServerRequestInterface;
-use Rikta\TestWebhook\Exception\LoopTimeoutException;
 use Rikta\TestWebhook\Utils\Output;
 use Rikta\TestWebhook\Utils\StreamDummy;
-use Rikta\TestWebhook\Utils\TimedLoop;
+use Rikta\TimedLoop\LoopTimeoutException;
+use Rikta\TimedLoop\TimedLoop;
 use function array_slice;
 use function count;
 
@@ -54,13 +54,9 @@ class Query
      */
     public function waitForMatchingRequests(int $amount = 1, $maxSeconds = 10): self
     {
-        Output::step("Wait for $amount matching requests");
-        TimedLoop::loop(
-            fn () => $this->count() >= $amount,
-            false,
-            [],
-            $maxSeconds
-        );
+        (new TimedLoop(fn () => $this->count() >= $amount))
+            ->forMaximumSeconds($maxSeconds)
+            ->invoke();
         return $this;
     }
 
